@@ -4,6 +4,7 @@ import '../styles/index.css';
 
 function Index() {
   const [date, setDate] = useState(null);
+  const [dateGo, setDateGo] = useState(null);
   useEffect(() => {
     async function getDate() {
       const res = await fetch('/api/date');
@@ -11,6 +12,12 @@ function Index() {
       setDate(newDate);
     }
     getDate();
+    async function getDateGo() {
+      const resGo = await fetch('/api/currentdate');
+      const newDateGo = await resGo.text();
+      setDateGo(newDateGo);
+    }
+    getDateGo();
   }, []);
   return (
     <main>
@@ -49,6 +56,8 @@ function Index() {
       <br />
       <h2>The date according to Node.js (TypeScript) is:</h2>
       <p>{date ? date : 'Loading date...'}</p>
+      <h2>The date according to Golang is:</h2>
+      <p>{dateGo ? dateGo : 'Loading date...'}</p>
     </main>
   );
 }
